@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.dirname(__FILE__) + '/../lib'
+require 'appctl/cli'
+require 'appctl/control'
+require 'appctl/git_adapter'
+require 'appctl/version'
+require 'appctl/instance'
+require 'appctl/db_adapter'
+require 'appctl/rake_adapter'
+
+Appctl::Cli.new(ARGV.dup).run

@@ -1,0 +1,25 @@
+= Appctl
+
+Automates a lot of the commands necessary with keeping multiples branches of a Rails App on a development machine. Aim is for it to be a one line command to switch branches. Grabs latest code, switches databases for you.
+
+== Usage
+
+  appctl list
+
+List of all the remote and local branches. 
+
+  appctl use name
+
+Switch to branch 'name'. When doing that, it also:
+
+# Checks out a local version if the branch is only available remotely.
+# If it's already checked out, do a pull to make sure we have the latest copy.
+# Create the database if it doesn't already exist and import a recent dump
+# Check for pending migrations
+# Restart the app (touch tmp/restart.txt)
+
+The dump file is expected to be a gzipped archive at ~/appctl-dump.tgz.
+
+  appctl update
+
+Does a git pull and runs migrations. 
