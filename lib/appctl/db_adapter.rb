@@ -9,7 +9,7 @@ module Appctl
     def list
       re = Regexp.new("^#{@db_prefix}")
       hash = dev_hash
-	    `echo "show databases;" | mysql -u #{hash['username']} --password=#{hash['password']}`.split("\n").select{|name| name =~ re}.map{|name| name.sub re, ''}
+      `echo "show databases;" | mysql -u #{hash['username']} --password=#{hash['password']}`.split("\n").select{|name| name =~ re}.map{|name| name.sub re, ''}
     end
     
     def update_database_yaml(db_name)

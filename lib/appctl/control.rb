@@ -5,10 +5,10 @@ module Appctl
   class Control
     
     def initialize
-    	@git_adapter = Appctl::GitAdapter.new
-    	@db_adapter = Appctl::DbAdapter.new('artchannel_')
-    	@rake_adapter = Appctl::RakeAdapter.new
-    	options = YAML::load '.appctl/config.yml'
+      @git_adapter = Appctl::GitAdapter.new
+      @db_adapter = Appctl::DbAdapter.new('artchannel_')
+      @rake_adapter = Appctl::RakeAdapter.new
+      options = YAML::load '.appctl/config.yml'
     end
     
     def list
