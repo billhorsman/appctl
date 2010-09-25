@@ -22,6 +22,7 @@ module Appctl
     
     def update
       @git_adapter.pull
+      @rake_adapter.db_migrate
     end
     
     def reset
