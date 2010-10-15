@@ -4,23 +4,23 @@ Automates a lot of the commands necessary with keeping multiples branches of a R
 
 == Usage
 
-  appctl list
+=== <tt>appctl list</tt>
 
 List of all the remote and local branches. 
 
-  appctl use name
+=== <tt>appctl use name</tt>
 
-Switch to branch 'name'. When doing that, it also:
+Switch to branch <tt>name</tt>. When doing that, it also:
 
 Checks out a local version if the branch is only available remotely.
 * If it's already checked out, do a pull to make sure we have the latest copy.
-* Rewrite database.yml with a development database name based on the branch name
+* Rewrite <tt>database.yml</tt> with a development database name based on the branch name
 * Create the database if it doesn't already exist and import a recent dump
 * Check for pending migrations
 * Clone the database for the test environment
-* Restart the app (touch tmp/restart.txt)
+* Restart the app (<tt>touch tmp/restart.txt</tt>)
 
-  appctl update
+=== <tt>appctl update</tt>
 
 Does a git pull and runs migrations.
 
@@ -28,9 +28,12 @@ Does a git pull and runs migrations.
 
 It uses config/database.yml for configuration. 
 
-appctl: 
-  dump: ~/myapp-dump.gz
-  prefix: myapp_development_
+  appctl: 
+    dump: ~/myapp-dump.gz
+    prefix: myapp_development_
 
 The <tt>dump</tt> is the archive used to seed new databases from. The <tt>prefix</tt> is used to generate the database name. For instance, if you use a branch called <tt>master</tt> then it will create a database called <tt>myapp_development_master</tt>.
 
+== Credits
+
+Written by Bill Horsman
