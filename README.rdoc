@@ -12,15 +12,25 @@ List of all the remote and local branches.
 
 Switch to branch 'name'. When doing that, it also:
 
-# Checks out a local version if the branch is only available remotely.
-# If it's already checked out, do a pull to make sure we have the latest copy.
-# Create the database if it doesn't already exist and import a recent dump
-# Check for pending migrations
-# Clone the database for the test environment
-# Restart the app (touch tmp/restart.txt)
-
-The dump file is expected to be a gzipped archive at ~/appctl-dump.tgz.
+Checks out a local version if the branch is only available remotely.
+* If it's already checked out, do a pull to make sure we have the latest copy.
+* Rewrite database.yml with a development database name based on the branch name
+* Create the database if it doesn't already exist and import a recent dump
+* Check for pending migrations
+* Clone the database for the test environment
+* Restart the app (touch tmp/restart.txt)
 
   appctl update
 
-Does a git pull and runs migrations. 
+Does a git pull and runs migrations.
+
+== Configuration
+
+It uses config/database.yml for configuration. 
+
+appctl: 
+  dump: ~/myapp-dump.gz
+  prefix: myapp_development_
+
+The <tt>dump</tt> is the archive used to seed new databases from. The <tt>prefix</tt> is used to generate the database name. For instance, if you use a branch called <tt>master</tt> then it will create a database called <tt>myapp_development_master</tt>.
+
