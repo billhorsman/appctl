@@ -23,6 +23,11 @@ module Appctl
       do_command 'db:create'
     end
     
+    def db_test_clone_structure
+      puts "Cloning database structure for testing"
+      do_command 'db:test:clone_structure'
+    end
+    
   end
   
   class RakeError < RuntimeError

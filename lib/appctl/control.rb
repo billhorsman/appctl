@@ -29,6 +29,7 @@ module Appctl
       @rake_adapter.db_drop
       @rake_adapter.db_create
       @db_adapter.import "~/appctl-dump.gz", name
+      @rake_adapter.db_test_clone_structure
     end
     
     def use(name)
@@ -42,6 +43,7 @@ module Appctl
         puts "Using existing database"
       end
       @rake_adapter.db_migrate
+      @rake_adapter.db_test_clone_structure
       `mkdir -p tmp; touch tmp/restart.txt`
     end
 
