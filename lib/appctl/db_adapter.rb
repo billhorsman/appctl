@@ -2,8 +2,10 @@ module Appctl
   
   class DbAdapter
     
-    def initialize(db_prefix)
-      @db_prefix = db_prefix
+    def initialize
+      hash = YAML.load_file('config/database.yml')
+      @db_prefix = hash['appctl']['prefix']
+      @dump = hash['appctl']['dump']
     end
     
     def list
@@ -20,11 +22,11 @@ module Appctl
       end
     end
     
-    def import(archive, name)
+    def import(name)
       hash = dev_hash
       db_name = "#{@db_prefix}#{name}"
-      puts "Importing snapshot from #{archive}"
-      `gunzip -c #{archive} | mysql -u #{hash['username']} --password=#{hash['password']} #{db_name}`
+      puts "Importing snapshot from #{@dump}"
+      `gunzip -c #{@dump} | mysql -u #{hash['username']} --password=#{hash['password']} #{db_name}`
     end
     
     def dev_hash

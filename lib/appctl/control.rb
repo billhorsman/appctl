@@ -6,9 +6,8 @@ module Appctl
     
     def initialize
       @git_adapter = Appctl::GitAdapter.new
-      @db_adapter = Appctl::DbAdapter.new('artchannel_')
+      @db_adapter = Appctl::DbAdapter.new
       @rake_adapter = Appctl::RakeAdapter.new
-      options = YAML::load '.appctl/config.yml'
     end
     
     def list
@@ -28,8 +27,10 @@ module Appctl
     def reset
       @rake_adapter.db_drop
       @rake_adapter.db_create
-      @db_adapter.import "~/appctl-dump.gz", name
+      @db_adapter.import name
+      @rake_adapter.db_migrate
       @rake_adapter.db_test_clone_structure
+      `mkdir -p tmp; touch tmp/restart.txt`
     end
     
     def use(name)
@@ -37,8 +38,8 @@ module Appctl
       @git_adapter.checkout name
       db_list = @db_adapter.list
       if !db_list.include?(name)
-        @rake_adapter.create
-        @db_adapter.import "~/appctl-dump.gz", name
+        @rake_adapter.db_create
+        @db_adapter.import name
       else
         puts "Using existing database"
       end

@@ -16,6 +16,7 @@ Switch to branch 'name'. When doing that, it also:
 # If it's already checked out, do a pull to make sure we have the latest copy.
 # Create the database if it doesn't already exist and import a recent dump
 # Check for pending migrations
+# Clone the database for the test environment
 # Restart the app (touch tmp/restart.txt)
 
 The dump file is expected to be a gzipped archive at ~/appctl-dump.tgz.
